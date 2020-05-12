@@ -19,6 +19,7 @@ class TrainingPlot(Callback):
         self.logs = []
         fig , (ax1, ax2) = plt.subplots(2) 
         fig.tight_layout() 
+        self.figNumber = plt.gcf().number
 
     # This function is called at the end of each epoch
     def on_epoch_end(self, epoch, logs={}):
@@ -40,7 +41,7 @@ class TrainingPlot(Callback):
             #plt.figure()
             #fig, (ax1, ax2) = plt.subplots(2)
 
-            fig = plt.gcf()
+            fig = plt.figure(self.figNumber)
             ax = fig.get_axes()
             ax1 = ax[0]
             ax2 = ax[1]
@@ -63,3 +64,60 @@ class TrainingPlot(Callback):
             plt.pause(0.05)
             #plt.show(block=False)
             #plt.close()
+
+
+# # For visualization
+class Images(Callback):
+    
+    def __init__(self, validation_data):
+        super(Callback, self).__init__()
+        self.validation_data = validation_data
+        self.indizes = np.random.randint(self.validation_data[0].shape[0], size=8)
+        fig1 , ax = plt.subplots(2,8) 
+        self.figNumber = plt.gcf().number
+    
+    def on_epoch_end(self, epoch, logs):
+          indices = self.indizes
+          test_data = self.validation_data[0][indices]
+          pred_data = self.model.predict(test_data)
+          
+          fig1 = plt.figure(self.figNumber)
+          ax = fig1.get_axes()
+          
+          #initial data
+          ax1 = ax[0]
+          ax2 = ax[1]
+          ax3 = ax[2]
+          ax4 = ax[3]
+          ax5 = ax[4]
+          ax6 = ax[5]
+          ax7 = ax[6]
+          ax8 = ax[7]          
+          ax1.imshow(test_data[0,:,:])
+          ax2.imshow(test_data[1,:,:])
+          ax3.imshow(test_data[2,:,:])
+          ax4.imshow(test_data[3,:,:])
+          ax5.imshow(test_data[4,:,:])
+          ax6.imshow(test_data[5,:,:])
+          ax7.imshow(test_data[6,:,:])
+          ax8.imshow(test_data[7,:,:])
+
+          #predicted data          
+          ax9 = ax[8]
+          ax10 = ax[9]
+          ax11 = ax[10]
+          ax12 = ax[11]
+          ax13 = ax[12]
+          ax14 = ax[13]
+          ax15 = ax[14]
+          ax16 = ax[15]          
+          ax9.imshow(pred_data[0,:,:])
+          ax10.imshow(pred_data[1,:,:])
+          ax11.imshow(pred_data[2,:,:])
+          ax12.imshow(pred_data[3,:,:])
+          ax13.imshow(pred_data[4,:,:])
+          ax14.imshow(pred_data[5,:,:])
+          ax15.imshow(pred_data[6,:,:])
+          ax16.imshow(pred_data[7,:,:])
+          
+          plt.pause(0.05)
