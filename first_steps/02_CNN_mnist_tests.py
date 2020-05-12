@@ -24,6 +24,7 @@ loss_ = "categorical_crossentropy"
 first_layer_conv_width = 5
 first_layer_conv_height = 5
 dense_layer_size = 100
+batch_size_ = 2048
 
 # load data
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
@@ -65,7 +66,10 @@ model.add(Dense(num_classes, activation = "softmax"))
 model.compile(loss= loss_, optimizer=optimizer,
                     metrics=['accuracy'])
 
-# Fit the model
-model.fit(X_train, y_train, validation_data=(X_test, y_test), 
+# # Fit the model
+model.fit(X_train, y_train, validation_data=(X_test, y_test),batch_size = batch_size_, 
       epochs=epochs, callbacks=[plot_losses])
+
+# model.fit(X_train, y_train, validation_data=(X_test, y_test), 
+#       epochs=epochs, callbacks=[plot_losses])
 
