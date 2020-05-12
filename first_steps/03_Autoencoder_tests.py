@@ -23,8 +23,8 @@ from trainingVisualizer import TrainingPlot, Images
     
 #plot_losses = TrainingPlot()
 
-epochs_ = 50
-encoding_dim = 10
+epochs_ = 1000
+encoding_dim = 25
 
 
 (x_train, _), (x_test, _) = mnist.load_data()
@@ -43,10 +43,11 @@ model.summary()
 
 model.fit(x_train, x_train,
                 epochs=epochs_,
-                validation_data=(x_test, x_test), 
-                callbacks=[Images((x_test, x_test)), TrainingPlot()])
+                validation_data=(x_test, x_test), batch_size = 1024, 
+                callbacks=[TrainingPlot()])
+                #callbacks=[Images((x_test, x_test)), TrainingPlot()])
 
 
-model.save('auto.h5')
+#model.save('saved_models\\autoencoder_tests.h5')
 
 
