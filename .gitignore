@@ -8,6 +8,7 @@ all_pics/
 
 # beispielbilder welche ausgewertet werden
 test_pics/
+training_data/
 
 # resultsfolder
 results/
